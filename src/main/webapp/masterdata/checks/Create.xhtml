@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ChecksCreateDlg" widgetVar="ChecksCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateChecksTitle}">
+            <h:form id="ChecksCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{checksController.selected != null}">
+                        <p:outputLabel value="#{myBundle.CreateChecksLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{checksController.selected.id}" title="#{myBundle.CreateChecksTitle_id}" required="true" requiredMessage="#{myBundle.CreateChecksRequiredMessage_id}"/>
+                        <p:outputLabel value="#{myBundle.CreateChecksLabel_checkno}" for="checkno" />
+                        <p:inputText id="checkno" value="#{checksController.selected.checkno}" title="#{myBundle.CreateChecksTitle_checkno}" />
+                        <p:outputLabel value="#{myBundle.CreateChecksLabel_amount}" for="amount" />
+                        <p:inputText id="amount" value="#{checksController.selected.amount}" title="#{myBundle.CreateChecksTitle_amount}" />
+                        <p:outputLabel value="#{myBundle.CreateChecksLabel_exchangeID}" for="exchangeID" />
+                        <p:inputText id="exchangeID" value="#{checksController.selected.exchangeID}" title="#{myBundle.CreateChecksTitle_exchangeID}" />
+                        <p:outputLabel value="#{myBundle.CreateChecksLabel_PAymentDate}" for="PAymentDate" />
+                        <p:calendar id="PAymentDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{checksController.selected.PAymentDate}" title="#{myBundle.EditChecksTitle_PAymentDate}"  showOn="button"/>
+                        <p:outputLabel value="#{myBundle.CreateChecksLabel_note}" for="note" />
+                        <p:inputText id="note" value="#{checksController.selected.note}" title="#{myBundle.CreateChecksTitle_note}" />
+                        <p:outputLabel value="#{myBundle.CreateChecksLabel_collected}" for="collected" />
+                        <p:selectBooleanCheckbox id="collected" value="#{checksController.selected.collected}" />
+                        <p:outputLabel value="#{myBundle.CreateChecksLabel_isOut}" for="isOut" />
+                        <p:selectBooleanCheckbox id="isOut" value="#{checksController.selected.isOut}" required="true" requiredMessage="#{myBundle.EditChecksRequiredMessage_isOut}"/>
+                        <p:outputLabel value="#{myBundle.CreateChecksLabel_mandobId}" for="mandobId" />
+                        <p:inputText id="mandobId" value="#{checksController.selected.mandobId}" title="#{myBundle.CreateChecksTitle_mandobId}" />
+                        <p:outputLabel value="#{myBundle.CreateChecksLabel_date}" for="date" />
+                        <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{checksController.selected.date}" title="#{myBundle.EditChecksTitle_date}" required="true" requiredMessage="#{myBundle.EditChecksRequiredMessage_date}" showOn="button"/>
+                        <p:outputLabel value="#{myBundle.CreateChecksLabel_partialCollection}" for="partialCollection" />
+                        <p:selectBooleanCheckbox id="partialCollection" value="#{checksController.selected.partialCollection}" />
+                        <p:outputLabel value="#{myBundle.CreateChecksLabel_edited}" for="edited" />
+                        <p:selectBooleanCheckbox id="edited" value="#{checksController.selected.edited}" />
+                        <p:outputLabel value="#{myBundle.CreateChecksLabel_underCollection}" for="underCollection" />
+                        <p:selectBooleanCheckbox id="underCollection" value="#{checksController.selected.underCollection}" />
+                        <p:outputLabel value="#{myBundle.CreateChecksLabel_type}" for="type" />
+                        <p:selectOneMenu id="type" value="#{checksController.selected.type}" >
+                            <f:selectItems value="#{checktypeController.itemsAvailableSelectOne}"
+                                           var="typeItem"
+                                           itemValue="#{typeItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{myBundle.CreateChecksLabel_bank}" for="bank" />
+                        <p:selectOneMenu id="bank" value="#{checksController.selected.bank}" required="true" requiredMessage="#{myBundle.EditChecksRequiredMessage_bank}">
+                            <f:selectItems value="#{bankController.itemsAvailableSelectOne}"
+                                           var="bankItem"
+                                           itemValue="#{bankItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{myBundle.CreateChecksLabel_costCenter}" for="costCenter" />
+                        <p:selectOneMenu id="costCenter" value="#{checksController.selected.costCenter}" >
+                            <f:selectItems value="#{costCenterController.itemsAvailableSelectOne}"
+                                           var="costCenterItem"
+                                           itemValue="#{costCenterItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{myBundle.CreateChecksLabel_issuedby}" for="issuedby" />
+                        <p:selectOneMenu id="issuedby" value="#{checksController.selected.issuedby}" >
+                            <f:selectItems value="#{userController.itemsAvailableSelectOne}"
+                                           var="issuedbyItem"
+                                           itemValue="#{issuedbyItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{checksController.create}" value="#{myBundle.Save}" update="display,:ChecksListForm:datalist,:growl" oncomplete="handleSubmit(args,'ChecksCreateDialog');"/>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="ChecksCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

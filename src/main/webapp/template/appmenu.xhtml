@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <h:form id="menuForm">
+
+            <p:panel rendered="#{userManager.loggedIn}" styleClass="nonBorderPanel">
+                <h:panelGrid columns="3">
+
+                    <p:commandButton type="submit" style="font-size: 15px;border:none;background-color: #97b3e7" action="#{userManager.logout}" value="#{myBundle.label_logout}" ajax="false" icon="ui-icon-power" rendered="#{userManager.loggedIn}"/>
+                    <h:outputText value="#{userManager.currentUser.fullName}" style="vertical-align: middle;font-weight: bold;font-size:20px; alignment-adjust: auto; color: #d61f27" rendered="#{userManager.loggedIn}"/>
+
+                    <h:outputText value="*#{myBundle.welcome_user_message}*" style="vertical-align: middle;font-weight: bolder;font-size:20px;" rendered="#{userManager.loggedIn}"/>
+
+                </h:panelGrid>
+            </p:panel>
+        </h:form>
+    </ui:composition>
+
+</html>

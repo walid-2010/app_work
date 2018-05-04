@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="HotelEditDlg" widgetVar="HotelEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.EditHotelTitle}">
+            <h:form id="HotelEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{hotelController.selected != null}">
+                        <p:outputLabel value="#{myBundle.EditHotelLabel_hotelID}" for="hotelID" />
+                        <p:inputText id="hotelID" value="#{hotelController.selected.hotelID}" title="#{myBundle.EditHotelTitle_hotelID}" required="true" requiredMessage="#{myBundle.EditHotelRequiredMessage_hotelID}"/>
+                        <p:outputLabel value="#{myBundle.EditHotelLabel_hotelName}" for="hotelName" />
+                        <p:inputText id="hotelName" value="#{hotelController.selected.hotelName}" title="#{myBundle.EditHotelTitle_hotelName}" />
+                        <p:outputLabel value="#{myBundle.EditHotelLabel_tel}" for="tel" />
+                        <p:inputText id="tel" value="#{hotelController.selected.tel}" title="#{myBundle.EditHotelTitle_tel}" />
+                        <p:outputLabel value="#{myBundle.EditHotelLabel_addTel}" for="addTel" />
+                        <p:inputText id="addTel" value="#{hotelController.selected.addTel}" title="#{myBundle.EditHotelTitle_addTel}" />
+                        <p:outputLabel value="#{myBundle.EditHotelLabel_mobile}" for="mobile" />
+                        <p:inputText id="mobile" value="#{hotelController.selected.mobile}" title="#{myBundle.EditHotelTitle_mobile}" />
+                        <p:outputLabel value="#{myBundle.EditHotelLabel_fax}" for="fax" />
+                        <p:inputText id="fax" value="#{hotelController.selected.fax}" title="#{myBundle.EditHotelTitle_fax}" />
+                        <p:outputLabel value="#{myBundle.EditHotelLabel_address}" for="address" />
+                        <p:inputTextarea rows="4" cols="30" id="address" value="#{hotelController.selected.address}" title="#{myBundle.EditHotelTitle_address}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{hotelController.update}" value="#{myBundle.Save}" update="display,:HotelListForm:datalist,:growl" oncomplete="handleSubmit(args, 'HotelEditDialog');"/>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="HotelEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

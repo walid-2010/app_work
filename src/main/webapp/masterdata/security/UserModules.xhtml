@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/template/template.xhtml"
+                xmlns:p="http://primefaces.org/ui">
+
+
+    <ui:define name="title">
+        <h:outputText value="#{myBundle.UserModules_title}"/>
+    </ui:define>
+
+    <ui:define name="body">
+        <h:form id="form" dir="rtl">
+
+            <p:messages autoUpdate="true"  closable="true"/>
+
+
+
+            <p:panelGrid  styleClass="borderbackgroundnone">
+                <p:spacer/>
+                <p:row>
+                    <p:column>
+                        <p:outputLabel value="#{myBundle.user_title}"/>
+                    </p:column>
+                    <p:column>
+                        <p:selectOneMenu id="comId" filter="true"
+                                         converter="omnifaces.SelectItemsConverter"
+                                         filterMatchMode="contains" value="#{userModulesBacking.currentSelectedUser}">
+                            <f:selectItem itemLabel="#{myBundle.Select}" itemValue="#{null}" />
+                            <f:selectItems value="#{userModulesBacking.userList}" var="userVar"
+                                           itemValue="#{userVar}" itemLabel="#{userVar.fullName}"
+                                           />
+                            <p:ajax event="change" update="detailsId" process="@this" />
+                        </p:selectOneMenu>
+                    </p:column>
+                    <p:column>
+                        <p:commandButton value="#{myBundle.NEWROW_BUTTON_LABEL}" update="form:detailsId"
+                                         id="addNewRowBtnId"
+                                         global="false" actionListener="#{userModulesBacking.addNewUserModules()}"
+                                         process="@this"/>
+                    </p:column>
+                </p:row>
+            </p:panelGrid>
+
+
+            <p:dataTable id="detailsId" var="detailVar"
+
+                         tabindex="1"
+                         rowIndexVar="rowIndex"
+                         emptyMessage="#{myBundle.EmptyResult}"
+                         value="#{userModulesBacking.currentSelectedUser.userModules}">
+
+
+
+                <p:column headerText="#{myBundle.components}" width="20%" style="text-align: center;">
+                    <p:selectOneMenu id="comId" filter="true"
+                                     converter="omnifaces.SelectItemsConverter"
+                                     filterMatchMode="contains" value="#{detailVar.componentId}">
+                        <f:selectItem itemLabel="#{myBundle.Select}" itemValue="#{null}" />
+                        <f:selectItems value="#{userModulesBacking.compoentList}" var="comVar"
+                                       itemValue="#{comVar}" itemLabel="#{comVar.description}"
+                                       />
+                        <p:ajax event="change" update="modId" process="@this" />
+                    </p:selectOneMenu>
+                </p:column>
+
+                <p:column headerText="#{myBundle.modules}" width="20%" style="text-align: center;">
+                    <p:selectOneMenu id="modId" filter="true"
+                                     required="true"
+                                     label="#{myBundle.modules}"
+                                     converter="omnifaces.SelectItemsConverter"
+                                     filterMatchMode="contains" value="#{detailVar.modules}">
+                        <f:selectItem itemLabel="#{myBundle.Select}" itemValue="#{null}" />
+                        <f:selectItems value="#{detailVar.componentId.modulesList}" var="modVar"
+                                       itemValue="#{modVar}" itemLabel="#{modVar.description}"
+                                       />
+                        <p:ajax event="change"  global="false"/>
+                    </p:selectOneMenu>
+                </p:column>
+
+<!--                <p:column headerText="#{myBundle.operation_type}" width="20%" style="text-align: center;">
+                    <p:selectOneMenu id="opId" filter="true"
+                                     required="true"
+                                     label="#{myBundle.operation_type}"
+                                     converter="omnifaces.SelectItemsConverter"
+                                     filterMatchMode="contains" value="#{detailVar.operationId}">
+                        <f:selectItem itemLabel="#{myBundle.Select}" itemValue="#{null}" />
+                        <f:selectItems value="#{userModulesBacking.modulesOperationses}" var="opVar"
+                                       itemValue="#{modVar}" itemLabel="#{opVar.description}"
+                                       />
+                        <p:ajax event="change" process="@this" global="false"/>
+                    </p:selectOneMenu>
+                </p:column>-->
+
+                <p:column width="5%">
+                    <p:commandButton global="false"  id="removebtnid"
+                                     icon="ui-icon-trash" process="@this" update=":form:detailsId"
+                                     actionListener="#{userModulesBacking.removeUserModule(detailVar)}"
+                                     >
+                    </p:commandButton>
+                </p:column>
+
+
+            </p:dataTable>
+
+
+
+
+            <p:panelGrid  styleClass="borderbackgroundnone">
+                <p:spacer/>
+                <p:row>
+                    <p:column>
+                        <p:commandButton icon="ui-icon-disk"
+                                         validateClient="true"
+                                         value="#{myBundle.SAVE_BUTTON_LABEL}" process="@this"  actionListener="#{userModulesBacking.saveUser()}" update="form"/>
+
+                    </p:column>
+
+
+
+
+                </p:row>
+            </p:panelGrid>
+
+
+
+        </h:form>
+
+
+    </ui:define>
+
+</ui:composition>

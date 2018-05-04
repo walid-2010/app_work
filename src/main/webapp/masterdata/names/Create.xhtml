@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:lovItem="http://java.sun.com/jsf/composite/lovItem"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="NamesCreateDlg"
+                  dynamic="true"
+                  widgetVar="NamesCreateDialog"  resizable="false" appendTo="@(body)" header="#{myBundle.CreateNamesTitle}">
+            <h:form id="NamesCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="4" rendered="#{namesController.selected != null}">
+                        <p:outputLabel value="#{myBundle.CreateNamesLabel_nameNo}" for="nameNo" />
+                        <p:inputText id="nameNo" value="#{namesController.selected.nameNo}" title="#{myBundle.CreateNamesTitle_nameNo}" />
+                        <p:outputLabel value="#{myBundle.CreateNamesLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{namesController.selected.name}" title="#{myBundle.CreateNamesTitle_name}" />
+                        <p:outputLabel value="#{myBundle.CreateNamesLabel_creditLimit}" for="creditLimit" />
+                        <p:inputText id="creditLimit" value="#{namesController.selected.creditLimit}" title="#{myBundle.CreateNamesTitle_creditLimit}" />
+                        <p:outputLabel value="#{myBundle.CreateNamesLabel_openingBalance}" for="openingBalance" />
+                        <p:inputText id="openingBalance" value="#{namesController.selected.openingBalance}" title="#{myBundle.CreateNamesTitle_openingBalance}" />
+                        <p:outputLabel value="#{myBundle.CreateNamesLabel_openingBalanceDate}" for="openingBalanceDate" />
+                        <p:calendar id="openingBalanceDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{namesController.selected.openingBalanceDate}" title="#{myBundle.EditNamesTitle_openingBalanceDate}"  showOn="button"/>
+                        <p:outputLabel value="#{myBundle.CreateNamesLabel_defaultCustomer}" for="defaultCustomer" />
+                        <p:selectBooleanCheckbox id="defaultCustomer" value="#{namesController.selected.defaultCustomer}" />
+                        <p:outputLabel value="#{myBundle.CreateNamesLabel_freezePrice}" for="freezePrice" />
+                        <p:selectBooleanCheckbox id="freezePrice" value="#{namesController.selected.freezePrice}" />
+                        <p:outputLabel value="#{myBundle.CreateNamesLabel_pricing}" for="pricing" />
+                        <p:inputText id="pricing" value="#{namesController.selected.pricing}" title="#{myBundle.CreateNamesTitle_pricing}" />
+                        <p:outputLabel value="#{myBundle.CreateNamesLabel_customer}" for="customer" />
+                        <p:inputText id="customer" value="#{namesController.selected.customer}" title="#{myBundle.CreateNamesTitle_customer}" />
+                        <p:outputLabel value="#{myBundle.CreateNamesLabel_supplier}" for="supplier" />
+                        <p:inputText id="supplier" value="#{namesController.selected.supplier}" title="#{myBundle.CreateNamesTitle_supplier}" />
+                        <p:outputLabel value="#{myBundle.CreateNamesLabel_seller}" for="seller" />
+                        <p:inputText id="seller" value="#{namesController.selected.seller}" title="#{myBundle.CreateNamesTitle_seller}" />
+                        <p:outputLabel value="#{myBundle.CreateNamesLabel_lastUpdate}" for="lastUpdate" />
+                        <p:calendar id="lastUpdate" pattern="MM/dd/yyyy HH:mm:ss" value="#{namesController.selected.lastUpdate}" title="#{myBundle.EditNamesTitle_lastUpdate}"  showOn="button"/>
+                        <p:outputLabel value="#{myBundle.CreateNamesLabel_adduser}" for="adduser" />
+                        <p:inputText id="adduser" value="#{namesController.selected.adduser}" title="#{myBundle.CreateNamesTitle_adduser}" />
+                        <p:outputLabel value="#{myBundle.CreateNamesLabel_editeuser}" for="editeuser" />
+                        <p:inputText id="editeuser" value="#{namesController.selected.editeuser}" title="#{myBundle.CreateNamesTitle_editeuser}" />
+                        <p:outputLabel value="#{myBundle.CreateNamesLabel_adddate}" for="adddate" />
+                        <p:calendar id="adddate" pattern="MM/dd/yyyy HH:mm:ss" value="#{namesController.selected.adddate}" title="#{myBundle.EditNamesTitle_adddate}"  showOn="button"/>
+                        <p:outputLabel value="#{myBundle.CreateNamesLabel_note}" for="note" />
+                        <p:inputText id="note" value="#{namesController.selected.note}" title="#{myBundle.CreateNamesTitle_note}" />
+                        <p:outputLabel value="#{myBundle.CreateNamesLabel_active}" for="active" />
+                        <p:selectBooleanCheckbox id="active" value="#{namesController.selected.active}" />
+                        <p:outputLabel value="#{myBundle.CreateNamesLabel_accountID}" for="accountID" />
+                        <p:inputText id="accountID" value="#{namesController.selected.accountID}" title="#{myBundle.CreateNamesTitle_accountID}" />
+                        <p:outputLabel value="#{myBundle.CreateNamesLabel_auto}" for="auto" />
+                        <p:selectBooleanCheckbox id="auto" value="#{namesController.selected.auto}" />
+                        <p:outputLabel value="#{myBundle.CreateNamesLabel_nationality}" for="nationality" />
+                        <p:selectOneMenu id="nationality" value="#{namesController.selected.nationality}" >
+                            <f:selectItems value="#{namesController.nationalitysList}"
+                                           var="nationalityItem"
+                                           itemValue="#{nationalityItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{myBundle.CreateNamesLabel_bankAccount}" for="bankAccount" />
+                        <p:inputText id="bankAccount" value="#{namesController.selected.bankAccount}" title="#{myBundle.CreateNamesTitle_bankAccount}" />
+                        <p:outputLabel value="#{myBundle.CreateNamesLabel_mandob}" for="mandob" />
+
+                        <lovItem:lovItem src="#{namesController.namesesDataModel}"
+                                         value="#{namesController.selected.mandob}"
+                                         id="mandob"
+                                         dialogHeader="#{myBundle.ListNamesTitle}"
+                                         columns="mandob"
+                                         />
+
+
+
+                        <p:outputLabel value="#{myBundle.CreateNamesLabel_mandoobHead}" for="mandoobHead" />
+
+                        <lovItem:lovItem src="#{namesController.namesesDataModel}"
+                                         value="#{namesController.selected.mandoobHead}"
+                                         id="mandoobHead"
+                                         dialogHeader="#{myBundle.ListNamesTitle}"
+                                         columns="mandobHead"
+                                         />
+
+
+                        <p:outputLabel value="#{myBundle.CreateNamesLabel_discount}" for="discount" />
+                        <p:inputText id="discount" value="#{namesController.selected.discount}" title="#{myBundle.CreateNamesTitle_discount}" />
+                        <p:outputLabel value="#{myBundle.CreateNamesLabel_customertype}" for="customertype" />
+                        <p:selectOneMenu id="customertype" value="#{namesController.selected.customertype}" >
+                            <f:selectItems value="#{namesController.customertypesList}"
+                                           var="customertypeItem"
+                                           converter="omnifaces.SelectItemsConverter"
+                                           itemValue="#{customertypeItem}"/>
+                        </p:selectOneMenu>
+
+
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{namesController.create}" value="#{myBundle.Save}" update="display,:NamesListForm:datalist,:growl" oncomplete="handleSubmit(args,'NamesCreateDialog');"/>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="NamesCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

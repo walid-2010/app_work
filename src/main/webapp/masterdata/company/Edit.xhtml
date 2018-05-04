@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CompanyEditDlg" widgetVar="CompanyEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.Edit}">
+            <h:form id="CompanyEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{companyController.selected != null}">
+
+                        <p:outputLabel value="#{myBundle.ViewCompanyLabel_CMPname}" for="CMPname" />
+                        <p:inputText id="CMPname" value="#{companyController.selected.cMPname}" title="#{myBundle.ViewCompanyLabel_CMPname}" />
+                        <p:outputLabel value="#{myBundle.ViewCompanyLabel_CMPaddress}" for="CMPaddress" />
+                        <p:inputText id="CMPaddress" value="#{companyController.selected.CMPaddress}" title="#{myBundle.ViewCompanyLabel_CMPaddress}" />
+                        <p:outputLabel value="#{myBundle.ViewCompanyTitle_CMPtel}" for="CMPtel" />
+                        <p:inputText id="CMPtel" value="#{companyController.selected.CMPtel}" title="#{myBundle.ViewCompanyTitle_CMPtel}" />
+                        <p:outputLabel value="#{myBundle.ViewCompanyTitle_CMPfax}" for="CMPfax" />
+                        <p:inputText id="CMPfax" value="#{companyController.selected.CMPfax}" title="#{myBundle.ViewCompanyTitle_CMPfax}" />
+                        <p:outputLabel value="#{myBundle.ViewCompanyTitle_CMPemail}" for="CMPemail" />
+                        <p:inputText id="CMPemail" value="#{companyController.selected.CMPemail}" title="#{myBundle.ViewCompanyTitle_CMPemail}" />
+
+                        <p:outputLabel value="#{myBundle.ViewCompanyTitle_CMPsite}" for="CMPsite" />
+                        <p:inputText id="CMPsite" value="#{companyController.selected.CMPsite}" title="#{myBundle.ViewCompanyTitle_CMPsite}" />
+                        <p:outputLabel value="#{myBundle.ViewCompanyTitle_CMPcity}" for="CMPcity" />
+                        <p:inputText id="CMPcity" value="#{companyController.selected.CMPcity}" title="#{myBundle.ViewCompanyTitle_CMPcity}" />
+                        <p:outputLabel value="#{myBundle.ViewCompanyTitle_CMPpostel}" for="CMPpostel" />
+                        <p:inputText id="CMPpostel" value="#{companyController.selected.CMPpostel}" title="#{myBundle.ViewCompanyTitle_CMPpostel}" />
+                        <p:outputLabel value="#{myBundle.ViewCompanyTitle_CMPmobile}" for="CMPmobile" />
+                        <p:inputText id="CMPmobile" value="#{companyController.selected.CMPmobile}" title="#{myBundle.ViewCompanyTitle_CMPmobile}" />
+                        <p:outputLabel value="#{myBundle.ViewCompanyTitle_CMPgov}" for="CMPgov" />
+                        <p:inputText id="CMPgov" value="#{companyController.selected.CMPgov}" title="#{myBundle.ViewCompanyTitle_CMPgov}" />
+                        <p:outputLabel value="#{myBundle.ViewCompanyTitle_CMPcunt}" for="CMPcunt" />
+                        <p:inputText id="CMPcunt" value="#{companyController.selected.CMPcunt}" title="#{myBundle.ViewCompanyTitle_CMPcunt}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{companyController.save}" process="@form" value="#{myBundle.Save}" update="display,:CompanyListForm:datalist,:growl"
+                                     oncomplete="handleSubmit(xhr,status,args,PF('CompanyEditDialog'));"/>
+                    <p:commandButton value="#{myBundle.Cancel}" global="false" oncomplete="PF('CompanyEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{myBundle.ListChecksTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="ChecksListForm">
+                <p:panel header="#{myBundle.ListChecksTitle}">
+                    <p:dataTable id="datalist" value="#{checksController.items}" var="item"
+                                 selectionMode="single" selection="#{checksController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton  editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton  editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListChecksTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListChecksTitle_checkno}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.checkno}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListChecksTitle_amount}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.amount}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListChecksTitle_exchangeID}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.exchangeID}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListChecksTitle_PAymentDate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.PAymentDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListChecksTitle_note}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.note}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListChecksTitle_collected}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.collected}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListChecksTitle_isOut}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.isOut}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListChecksTitle_mandobId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.mandobId}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListChecksTitle_date}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.date}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListChecksTitle_partialCollection}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.partialCollection}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListChecksTitle_edited}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.edited}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListChecksTitle_underCollection}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.underCollection}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListChecksTitle_type}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.type}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListChecksTitle_bank}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.bank}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListChecksTitle_costCenter}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.costCenter}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListChecksTitle_issuedby}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.issuedby}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{checksController.prepareCreate}" update=":ChecksCreateForm" oncomplete="PF('ChecksCreateDialog').show()"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":ChecksEditForm" oncomplete="PF('ChecksEditDialog').show()" disabled="#{empty checksController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{checksController.destroy}" update=":growl,datalist" disabled="#{empty checksController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+
+        </ui:define>
+    </ui:composition>
+
+</html>

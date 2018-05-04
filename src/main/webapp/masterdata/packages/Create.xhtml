@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PackageCreateDlg" widgetVar="PackageCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreatePackageTitle}">
+            <h:form id="PackageCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{packageController.selected != null}">
+                        <p:outputLabel value="#{myBundle.CreatePackageLabel_pakageID}" for="pakageID" />
+                        <p:inputText id="pakageID" value="#{packageController.selected.pakageID}" title="#{myBundle.CreatePackageTitle_pakageID}" required="true" requiredMessage="#{myBundle.CreatePackageRequiredMessage_pakageID}"/>
+                        <p:outputLabel value="#{myBundle.CreatePackageLabel_pakagename}" for="pakagename" />
+                        <p:inputText id="pakagename" value="#{packageController.selected.pakagename}" title="#{myBundle.CreatePackageTitle_pakagename}" required="true" requiredMessage="#{myBundle.CreatePackageRequiredMessage_pakagename}"/>
+                        <p:outputLabel value="#{myBundle.CreatePackageLabel_years}" for="years" />
+                        <p:inputText id="years" value="#{packageController.selected.years}" title="#{myBundle.CreatePackageTitle_years}" />
+                        <p:outputLabel value="#{myBundle.CreatePackageLabel_persons}" for="persons" />
+                        <p:inputText id="persons" value="#{packageController.selected.persons}" title="#{myBundle.CreatePackageTitle_persons}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{packageController.create}" value="#{myBundle.Save}" update="display,:PackageListForm:datalist,:growl" oncomplete="handleSubmit(args,'PackageCreateDialog');"/>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PackageCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

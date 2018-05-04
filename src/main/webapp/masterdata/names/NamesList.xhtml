@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template/template.xhtml">
+
+
+
+        <ui:define name="title">
+            <h:outputText value="#{myBundle.ListNamesTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="NamesListForm">
+                <p:panel header="#{myBundle.ListNamesTitle}">
+                    <p:dataTable id="datalist" value="#{namesController.items}" var="item"
+                                 selectionMode="single" selection="#{namesController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.nameID}"
+                                 rows="10"
+                                 paginatorPosition="bottom"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton  editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton  editButton deleteButton"/>
+
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListNamesTitle_nameNo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nameNo}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListNamesTitle_name}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.name}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListNamesTitle_creditLimit}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.creditLimit}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListNamesTitle_openingBalance}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.openingBalance}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListNamesTitle_openingBalanceDate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.openingBalanceDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListNamesTitle_defaultCustomer}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.defaultCustomer}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListNamesTitle_freezePrice}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.freezePrice}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListNamesTitle_pricing}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pricing}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListNamesTitle_customer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.customer}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListNamesTitle_supplier}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.supplier}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListNamesTitle_seller}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.seller}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListNamesTitle_lastUpdate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.lastUpdate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListNamesTitle_adduser}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.adduser}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListNamesTitle_editeuser}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.editeuser}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListNamesTitle_adddate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.adddate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListNamesTitle_note}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.note}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListNamesTitle_active}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.active}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListNamesTitle_accountID}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.accountID}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListNamesTitle_auto}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.auto}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListNamesTitle_nationality}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nationality}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListNamesTitle_bankAccount}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.bankAccount}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListNamesTitle_mandob}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.mandob}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListNamesTitle_mandoobHead}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.mandoobHead}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListNamesTitle_mandoob}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.mandoob}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListNamesTitle_manfaz}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.manfaz}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListNamesTitle_discount}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.discount}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListNamesTitle_customertype}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.customertype}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListNamesTitle_salesHead}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.salesHead}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListNamesTitle_salesPerson}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.salesPerson}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{namesController.prepareCreate}" update=":NamesCreateForm" oncomplete="PF('NamesCreateDialog').show()"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":NamesEditForm" oncomplete="PF('NamesEditDialog').show()" disabled="#{empty namesController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{namesController.destroy}" update=":growl,datalist" disabled="#{empty namesController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+
+        </ui:define>
+    </ui:composition>
+
+</html>

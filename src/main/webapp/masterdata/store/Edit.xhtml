@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="StoreEditDlg" widgetVar="StoreEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.EditStoreTitle}">
+            <h:form id="StoreEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{storeController.selected != null}">
+                        <p:outputLabel value="#{myBundle.EditStoreLabel_storeId}" for="storeId" />
+                        <p:inputText id="storeId" value="#{storeController.selected.storeId}" title="#{myBundle.EditStoreTitle_storeId}" required="true" requiredMessage="#{myBundle.EditStoreRequiredMessage_storeId}"/>
+                        <p:outputLabel value="#{myBundle.EditStoreLabel_storeNo}" for="storeNo" />
+                        <p:inputText id="storeNo" value="#{storeController.selected.storeNo}" title="#{myBundle.EditStoreTitle_storeNo}" />
+                        <p:outputLabel value="#{myBundle.EditStoreLabel_storeName}" for="storeName" />
+                        <p:inputText id="storeName" value="#{storeController.selected.storeName}" title="#{myBundle.EditStoreTitle_storeName}" />
+                        <p:outputLabel value="#{myBundle.EditStoreLabel_phone}" for="phone" />
+                        <p:inputText id="phone" value="#{storeController.selected.phone}" title="#{myBundle.EditStoreTitle_phone}" />
+                        <p:outputLabel value="#{myBundle.EditStoreLabel_mobile}" for="mobile" />
+                        <p:inputText id="mobile" value="#{storeController.selected.mobile}" title="#{myBundle.EditStoreTitle_mobile}" />
+                        <p:outputLabel value="#{myBundle.EditStoreLabel_phone2}" for="phone2" />
+                        <p:inputText id="phone2" value="#{storeController.selected.phone2}" title="#{myBundle.EditStoreTitle_phone2}" />
+                        <p:outputLabel value="#{myBundle.EditStoreLabel_fax}" for="fax" />
+                        <p:inputText id="fax" value="#{storeController.selected.fax}" title="#{myBundle.EditStoreTitle_fax}" />
+                        <p:outputLabel value="#{myBundle.EditStoreLabel_address}" for="address" />
+                        <p:inputText id="address" value="#{storeController.selected.address}" title="#{myBundle.EditStoreTitle_address}" />
+                        <p:outputLabel value="#{myBundle.EditStoreLabel_block}" for="block" />
+                        <p:selectBooleanCheckbox id="block" value="#{storeController.selected.block}" />
+                        <p:outputLabel value="#{myBundle.EditStoreLabel_isBrach}" for="isBrach" />
+                        <p:selectBooleanCheckbox id="isBrach" value="#{storeController.selected.isBrach}" />
+                        <p:outputLabel value="#{myBundle.EditStoreLabel_allowStoreSale}" for="allowStoreSale" />
+                        <p:selectBooleanCheckbox id="allowStoreSale" value="#{storeController.selected.allowStoreSale}" />
+                        <p:outputLabel value="#{myBundle.EditStoreLabel_isDefault}" for="isDefault" />
+                        <p:selectBooleanCheckbox id="isDefault" value="#{storeController.selected.isDefault}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{storeController.update}" value="#{myBundle.Save}" update="display,:StoreListForm:datalist,:growl" oncomplete="handleSubmit(args, 'StoreEditDialog');"/>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="StoreEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

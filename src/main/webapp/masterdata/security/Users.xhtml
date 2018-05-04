@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/template/template.xhtml"
+                xmlns:p="http://primefaces.org/ui">
+
+
+    <ui:define name="title">
+        <h:outputText value="#{myBundle.user_title}"/>
+    </ui:define>
+
+    <ui:define name="body">
+        <h:form id="form" dir="rtl">
+
+            <p:messages autoUpdate="true"  closable="true"/>
+
+            <p:fieldset  legend="#{myBundle.Search_btn}" rendered="#{usersBacking.user.isAdmin}" collapsed="true" toggleable="true">
+                <f:validateBean disabled="true">
+                    <p:panelGrid styleClass="borderbackgroundnone" id="advanced_search_panel">
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel  value="#{myBundle.label_userName}" />
+                            </p:column>
+                            <p:column>
+                                <p:inputText value="#{usersBacking.searchingUser.username}"/>
+                            </p:column>
+
+                            <p:column>
+                                <p:outputLabel value="#{myBundle.first_name}" />
+                            </p:column>
+                            <p:column>
+                                <p:inputText value="#{usersBacking.searchingUser.firstName}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel  value="#{myBundle.second_name}" />
+                            </p:column>
+                            <p:column>
+                                <p:inputText value="#{usersBacking.searchingUser.secondName}"/>
+                            </p:column>
+
+                            <p:column>
+                                <p:outputLabel value="#{myBundle.last_name}" />
+                            </p:column>
+                            <p:column>
+                                <p:inputText value="#{usersBacking.searchingUser.lastName}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel value="#{myBundle.admin_user}" />
+                            </p:column>
+                            <p:column>
+                                <p:selectBooleanCheckbox value="#{usersBacking.searchingUser.isAdmin}">
+                                    <p:ajax process="@this" global="false"/>
+                                </p:selectBooleanCheckbox>
+                            </p:column>
+                            <p:column>
+                                <p:commandButton icon="ui-icon-search"
+
+                                                 value="#{myBundle.GO}"  process="advanced_search_panel" actionListener="#{usersBacking.advanceSearch()}" update="resultTableId,detailsFromId"/>
+
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+
+                </f:validateBean>
+            </p:fieldset>
+
+            <p:panel id="resultTableId"    styleClass="nonBorderPanel">
+                <p:dataTable var="userVar" value="#{usersBacking.lazyItems}"
+                             rows="5"
+                             rendered="#{usersBacking.createMode eq false}"
+                             widgetVar="userTableIdWv"
+                             styleClass="filteringTable"
+                             emptyMessage="#{myBundle.EmptyResult}"
+                             paginator="true"
+                             sortOrder="descending"
+                             sortField="id"
+                             paginatorPosition="bottom"
+                             rowsPerPageTemplate="5,10,20,30,50,100"
+                             selection="#{usersBacking.selected}"
+                             id="userTableId"
+                             lazy="true">
+
+                    <p:ajax event="page"  update="detailsFromId"/>
+
+                    <p:ajax event="rowSelectRadio" listener="#{usersBacking.onRowSelect}"  process="userTableId" update=":detailsFromId"/>
+                    <p:ajax event="rowSelect" listener="#{usersBacking.onRowSelect}"        update=":detailsFromId"/>
+                    <p:column selectionMode="single"   style="width:18px" />
+
+
+                    <p:column headerText="#{myBundle.label_userName}">
+                        <h:outputText value="#{userVar.username}"/>
+                    </p:column>
+
+                    <p:column headerText="#{myBundle.first_name}">
+                        <h:outputText value="#{userVar.firstName}"/>
+                    </p:column>
+
+                    <p:column headerText="#{myBundle.second_name}">
+                        <h:outputText value="#{userVar.secondName}"/>
+                    </p:column>
+
+                    <p:column headerText="#{myBundle.last_name}">
+                        <h:outputText value="#{userVar.lastName}"/>
+                    </p:column>
+
+                    <p:column headerText="#{myBundle.admin_user}">
+                        <h:selectBooleanCheckbox  disabled="true" value="#{userVar.isAdmin}" />
+                    </p:column>
+
+
+                </p:dataTable>
+            </p:panel>
+
+        </h:form>
+
+        <h:form id="detailsFromId" dir="rtl">
+            <br/>
+            <br/>
+
+            <p:panelGrid styleClass="borderbackgroundnone" id="addEditpanel">
+                <p:row>
+                    <p:column>
+                        <p:outputLabel  value="#{myBundle.label_userName}" />
+                    </p:column>
+                    <p:column>
+                        <p:inputText disabled="#{usersBacking.selected.id ne null}" label="#{myBundle.label_userName}" required="true" value="#{usersBacking.selected.username}">
+
+                        </p:inputText>
+                    </p:column>
+
+                    <p:column>
+                        <p:outputLabel value="#{myBundle.first_name}" />
+                    </p:column>
+                    <p:column>
+                        <p:inputText required="true" label="#{myBundle.first_name}" value="#{usersBacking.selected.firstName}">
+
+                        </p:inputText>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <p:outputLabel  value="#{myBundle.second_name}" />
+                    </p:column>
+                    <p:column>
+                        <p:inputText value="#{usersBacking.selected.secondName}"/>
+                    </p:column>
+
+                    <p:column>
+                        <p:outputLabel value="#{myBundle.last_name}" />
+                    </p:column>
+                    <p:column>
+                        <p:inputText value="#{usersBacking.selected.lastName}"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <p:outputLabel value="#{myBundle.label_password}" />
+                    </p:column>
+                    <p:column>
+                        <p:password id="passwordId" validator="#{usersBacking.confirmPassword}" maxlength="20"  label="#{myBundle.label_password}" required="#{usersBacking.createMode eq true}"
+                                    value="#{usersBacking.selected.passWordConfirmed}">
+                            <p:ajax event="change" process="@this" global="false"/>
+                        </p:password>
+                    </p:column>
+
+                    <p:column>
+                        <p:outputLabel value="#{myBundle.password_confirm}" />
+                    </p:column>
+                    <p:column>
+                        <p:password id="passwordConfirm" validator="#{usersBacking.confirmPasswordCHeck}" maxlength="20"
+                                    label="#{myBundle.password_confirm}" required="#{usersBacking.selected.passWordConfirmed ne null}"
+                                    value="#{usersBacking.confirmedPassWord}">
+                            <p:ajax event="change" process="@this" global="false"/>
+                        </p:password>
+                    </p:column>
+                </p:row>
+                <p:row rendered="#{usersBacking.user.isAdmin}">
+                    <p:column>
+                        <p:outputLabel value="#{myBundle.admin_user}" />
+                    </p:column>
+                    <p:column>
+                        <p:selectBooleanCheckbox value="#{usersBacking.selected.isAdmin}">
+                            <p:ajax process="@this" global="false"/>
+                        </p:selectBooleanCheckbox>
+                    </p:column>
+                </p:row>
+            </p:panelGrid>
+
+
+
+            <p:panelGrid styleClass="borderbackgroundnone" rendered="#{usersBacking.user.isAdmin}">
+                <p:row>
+                    <p:column>
+                        <p:commandButton icon="ui-icon-disk"
+                                         validateClient="true"
+                                         value="#{myBundle.SAVE_BUTTON_LABEL}" process="@this,detailsFromId"  actionListener="#{usersBacking.saveUser()}"
+                                         update=":form,detailsFromId"/>
+
+                    </p:column>
+
+                    <p:column>
+                        <p:commandButton icon="ui-icon-trash"
+                                         rendered="#{usersBacking.selected.id ne null or usersBacking.createMode eq false}"
+                                         immediate="true"
+                                         value="#{myBundle.DELETE_BUTTON_LABEL}" process="@this"  actionListener="#{usersBacking.deleteUser()}" update="form,detailsFromId">
+
+                            <p:confirm header="#{myBundle.ConfirmDelet}" message="#{myBundle.delete_header_confirm}" icon="ui-icon-alert" />
+                        </p:commandButton>
+
+                    </p:column>
+                    <p:column></p:column>
+                    <p:column>
+                        <p:commandButton icon="ui-icon-plus" global="false"
+                                         value="#{myBundle.NEW_BUTTON_LABEL}" process="@this" immediate="true"  actionListener="#{usersBacking.addNewUser()}" update="form,detailsFromId"/>
+
+                    </p:column>
+                </p:row>
+            </p:panelGrid>
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="#{myBundle.DOMAIN_YESNODOMAIN_Y}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="#{myBundle.DOMAIN_YESNODOMAIN_N}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+
+        </h:form>
+
+
+    </ui:define>
+
+</ui:composition>

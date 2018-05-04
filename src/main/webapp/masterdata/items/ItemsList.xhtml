@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{myBundle.ListItemsTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="ItemsListForm">
+                <p:panel header="#{myBundle.ListItemsTitle}">
+                    <p:dataTable id="datalist" value="#{itemsController.items}" var="item"
+                                 selectionMode="single" selection="#{itemsController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton  editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton  editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListItemsTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListItemsTitle_code}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.code}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListItemsTitle_isService}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.isService}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListItemsTitle_name}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.name}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListItemsTitle_note}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.note}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListItemsTitle_isSerialieze}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.isSerialieze}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListItemsTitle_minLimit}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.minLimit}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListItemsTitle_masssale}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.masssale}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListItemsTitle_customerSale}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.customerSale}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListItemsTitle_purchasePrice}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.purchasePrice}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListItemsTitle_limitSalePrice}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.limitSalePrice}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListItemsTitle_catagory}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.catagory}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListItemsTitle_active}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.active}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListItemsTitle_itemPhoto}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.itemPhoto}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListItemsTitle_auto}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.auto}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListItemsTitle_facCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.facCode}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListItemsTitle_price1}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.price1}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListItemsTitle_price2}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.price2}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListItemsTitle_price3}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.price3}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{myBundle.ListItemsTitle_price4}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.price4}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{itemsController.prepareCreate}" update=":ItemsCreateForm" oncomplete="PF('ItemsCreateDialog').show()"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":ItemsEditForm" oncomplete="PF('ItemsEditDialog').show()" disabled="#{empty itemsController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{itemsController.destroy}" update=":growl,datalist" disabled="#{empty itemsController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

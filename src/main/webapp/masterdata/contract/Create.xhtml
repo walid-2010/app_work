@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ContractCreateDlg" widgetVar="ContractCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateContractTitle}">
+            <h:form id="ContractCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{contractController.selected != null}">
+                        <p:outputLabel value="#{myBundle.CreateContractLabel_contarctDate}" for="contarctDate" />
+                        <p:calendar id="contarctDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{contractController.selected.contarctDate}" title="#{myBundle.EditContractTitle_contarctDate}" required="true" requiredMessage="#{myBundle.EditContractRequiredMessage_contarctDate}" showOn="button"/>
+                        <p:outputLabel value="#{myBundle.CreateContractLabel_pakage}" for="pakage" />
+                        <p:selectOneMenu id="pakage" value="#{contractController.selected.pakage}" required="true" requiredMessage="#{myBundle.EditContractRequiredMessage_pakage}">
+                            <f:selectItems value="#{contractController.packagesList}"
+                                           var="pakageItem"
+                                           itemValue="#{pakageItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{myBundle.CreateContractLabel_totalAmount}" for="totalAmount" />
+                        <p:inputText id="totalAmount" value="#{contractController.selected.totalAmount}" title="#{myBundle.CreateContractTitle_totalAmount}" />
+                        <p:outputLabel value="#{myBundle.CreateContractLabel_firstPayment}" for="firstPayment" />
+                        <p:inputText id="firstPayment" value="#{contractController.selected.firstPayment}" title="#{myBundle.CreateContractTitle_firstPayment}" />
+                        <p:outputLabel value="#{myBundle.CreateContractLabel_contractID}" for="contractID" />
+                        <p:inputText id="contractID" value="#{contractController.selected.contractID}" title="#{myBundle.CreateContractTitle_contractID}" required="true" requiredMessage="#{myBundle.CreateContractRequiredMessage_contractID}"/>
+                        <p:outputLabel value="#{myBundle.CreateContractLabel_code}" for="code" />
+                        <p:inputText id="code" value="#{contractController.selected.code}" title="#{myBundle.CreateContractTitle_code}" />
+                        <p:outputLabel value="#{myBundle.CreateContractLabel_noOfMonths}" for="noOfMonths" />
+                        <p:inputText id="noOfMonths" value="#{contractController.selected.noOfMonths}" title="#{myBundle.CreateContractTitle_noOfMonths}" />
+                        <p:outputLabel value="#{myBundle.CreateContractLabel_nameID}" for="nameID" />
+                        <p:selectOneMenu id="nameID" value="#{contractController.selected.nameID}" required="true" requiredMessage="#{myBundle.EditContractRequiredMessage_nameID}">
+                            <f:selectItems value="#{contractController.namesList}"
+                                           var="nameIDItem"
+                                           itemValue="#{nameIDItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{contractController.create}" value="#{myBundle.Save}" update="display,:ContractListForm:datalist,:growl" oncomplete="handleSubmit(args,'ContractCreateDialog');"/>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="ContractCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

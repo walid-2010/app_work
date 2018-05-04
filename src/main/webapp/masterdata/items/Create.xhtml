@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ItemsCreateDlg" dynamic="true" widgetVar="ItemsCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateItemsTitle}">
+            <h:form id="ItemsCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{itemsController.selected != null}">
+                        <p:outputLabel value="#{myBundle.CreateItemsLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{itemsController.selected.id}" title="#{myBundle.CreateItemsTitle_id}" required="true" requiredMessage="#{myBundle.CreateItemsRequiredMessage_id}"/>
+                        <p:outputLabel value="#{myBundle.CreateItemsLabel_code}" for="code" />
+                        <p:inputText id="code" value="#{itemsController.selected.code}" title="#{myBundle.CreateItemsTitle_code}" />
+                        <p:outputLabel value="#{myBundle.CreateItemsLabel_isService}" for="isService" />
+                        <p:selectBooleanCheckbox id="isService" value="#{itemsController.selected.isService}" />
+                        <p:outputLabel value="#{myBundle.CreateItemsLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{itemsController.selected.name}" title="#{myBundle.CreateItemsTitle_name}" />
+                        <p:outputLabel value="#{myBundle.CreateItemsLabel_note}" for="note" />
+                        <p:inputText id="note" value="#{itemsController.selected.note}" title="#{myBundle.CreateItemsTitle_note}" />
+                        <p:outputLabel value="#{myBundle.CreateItemsLabel_isSerialieze}" for="isSerialieze" />
+                        <p:selectBooleanCheckbox id="isSerialieze" value="#{itemsController.selected.isSerialieze}" />
+                        <p:outputLabel value="#{myBundle.CreateItemsLabel_minLimit}" for="minLimit" />
+                        <p:inputText id="minLimit" value="#{itemsController.selected.minLimit}" title="#{myBundle.CreateItemsTitle_minLimit}" />
+                        <p:outputLabel value="#{myBundle.CreateItemsLabel_masssale}" for="masssale" />
+                        <p:inputText id="masssale" value="#{itemsController.selected.masssale}" title="#{myBundle.CreateItemsTitle_masssale}" />
+                        <p:outputLabel value="#{myBundle.CreateItemsLabel_customerSale}" for="customerSale" />
+                        <p:inputText id="customerSale" value="#{itemsController.selected.customerSale}" title="#{myBundle.CreateItemsTitle_customerSale}" />
+                        <p:outputLabel value="#{myBundle.CreateItemsLabel_purchasePrice}" for="purchasePrice" />
+                        <p:inputText id="purchasePrice" value="#{itemsController.selected.purchasePrice}" title="#{myBundle.CreateItemsTitle_purchasePrice}" />
+                        <p:outputLabel value="#{myBundle.CreateItemsLabel_limitSalePrice}" for="limitSalePrice" />
+                        <p:inputText id="limitSalePrice" value="#{itemsController.selected.limitSalePrice}" title="#{myBundle.CreateItemsTitle_limitSalePrice}" />
+                        <p:outputLabel value="#{myBundle.CreateItemsLabel_catagory}" for="catagory" />
+                        <p:inputText id="catagory" value="#{itemsController.selected.catagory}" title="#{myBundle.CreateItemsTitle_catagory}" />
+                        <p:outputLabel value="#{myBundle.CreateItemsLabel_active}" for="active" />
+                        <p:selectBooleanCheckbox id="active" value="#{itemsController.selected.active}" />
+                        <p:outputLabel value="#{myBundle.CreateItemsLabel_itemPhoto}" for="itemPhoto" />
+                        <p:inputText id="itemPhoto" value="#{itemsController.selected.itemPhoto}" title="#{myBundle.CreateItemsTitle_itemPhoto}" />
+                        <p:outputLabel value="#{myBundle.CreateItemsLabel_auto}" for="auto" />
+                        <p:selectBooleanCheckbox id="auto" value="#{itemsController.selected.auto}" />
+                        <p:outputLabel value="#{myBundle.CreateItemsLabel_facCode}" for="facCode" />
+                        <p:inputText id="facCode" value="#{itemsController.selected.facCode}" title="#{myBundle.CreateItemsTitle_facCode}" />
+                        <p:outputLabel value="#{myBundle.CreateItemsLabel_price1}" for="price1" />
+                        <p:inputText id="price1" value="#{itemsController.selected.price1}" title="#{myBundle.CreateItemsTitle_price1}" />
+                        <p:outputLabel value="#{myBundle.CreateItemsLabel_price2}" for="price2" />
+                        <p:inputText id="price2" value="#{itemsController.selected.price2}" title="#{myBundle.CreateItemsTitle_price2}" />
+                        <p:outputLabel value="#{myBundle.CreateItemsLabel_price3}" for="price3" />
+                        <p:inputText id="price3" value="#{itemsController.selected.price3}" title="#{myBundle.CreateItemsTitle_price3}" />
+                        <p:outputLabel value="#{myBundle.CreateItemsLabel_price4}" for="price4" />
+                        <p:inputText id="price4" value="#{itemsController.selected.price4}" title="#{myBundle.CreateItemsTitle_price4}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{itemsController.create}" value="#{myBundle.Save}" update="display,:ItemsListForm:datalist,:growl" oncomplete="handleSubmit(args,'ItemsCreateDialog');"/>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="ItemsCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

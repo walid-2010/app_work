@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <style>
+            .ui-menu .ui-menu-parent .ui-menu-child
+            {
+                width:auto !important;
+                color:#444 !important;
+            }
+            .ui-selectonemenu-panel .ui-selectonemenu-list-item
+            {
+                text-align:rtl !important;
+            }
+
+        </style>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <h:form dir="ltr" rendered="#{userManager.loggedIn}" id="header"  style="border-radius: 10px;">
+
+
+                <p:panel>
+
+                    <p:splitButton readonly="true"  value="#{myBundle.welcome_user_message} #{userManager.currentUser.username}">
+                        <p:menuitem action="#{userManager.logout()}" value="#{myBundle['label_logout']}" icon="ui-icon-power" immediate="true" ajax="false" />
+                    </p:splitButton>
+                </p:panel>
+
+
+
+
+
+                <p:breadCrumb id="sysBtns"  />
+
+
+
+
+
+
+
+            </h:form>
+
+        </ui:composition>
+    </h:body>
+</html>

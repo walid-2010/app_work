@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <title><ui:insert name="title">#{AppSettings.app_name}</ui:insert></title>
+        <h:outputStylesheet library="css" name="pfcrud.css"/>
+        <h:outputScript library="scripts" name="pfcrud.js"/>
+    </h:head>
+
+
+    <h:body>
+        <f:view locale="ar"/>
+        <p:dialog modal="true" appendTo=":fullPage" widgetVar="Loading" style="background: none!important;border: none!important;box-shadow:0px 0px 0px rgba(0,0,0,0)!important;" draggable="false" closable="false" resizable="false" showHeader="false">
+            <p:graphicImage name="img/ajax-loader4.gif" />
+        </p:dialog>
+
+
+        <p:ajaxStatus onstart="PF('Loading').show()" oncomplete="PF('Loading').hide()" />
+        <h:outputScript library="scripts" name="pfcrud.js" target="head" />
+        <h:outputScript library="scripts" name="ArabicLocale.js" target="head" />
+
+        <p:growl id="growl" life="3000"/>
+
+        <p:layout id="fullPage" fullPage="true">
+            <div>
+                <p:layoutUnit position="north" size="100" styleClass="topHeader" header="#{AppSettings.app_name}"  style="border:none !important;background: none !important;f">
+                    <!-- Menu here. Also a layout and a way to log a user out -->
+                    <ui:include src="/template/appmenu.xhtml"/>
+                </p:layoutUnit>
+            </div>
+            <div id="sidemaindiv">
+                <p:layoutUnit position="east"   style="border:none !important;background: none !important;">
+                    <ui:include src="/template/sidemenu.xhtml"/>
+                </p:layoutUnit>
+            </div>
+
+            <p:layoutUnit position="south" size="40" style="border:none !important;background: none !important;">
+                <ui:include src="/template/footer.xhtml"/>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="center" style="border:none !important;
+                          background: none !important;">
+                <ui:insert name="body"/>
+            </p:layoutUnit>
+
+        </p:layout>
+
+    </h:body>
+
+</html>

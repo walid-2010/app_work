@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ExchangeRateEditDlg" widgetVar="ExchangeRateEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.EditExchangeRateTitle}">
+            <h:form id="ExchangeRateEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{exchangeRateController.selected != null}">
+                        <p:outputLabel value="#{myBundle.EditExchangeRateLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{exchangeRateController.selected.id}" title="#{myBundle.EditExchangeRateTitle_id}" required="true" requiredMessage="#{myBundle.EditExchangeRateRequiredMessage_id}"/>
+                        <p:outputLabel value="#{myBundle.EditExchangeRateLabel_rate}" for="rate" />
+                        <p:inputText id="rate" value="#{exchangeRateController.selected.rate}" title="#{myBundle.EditExchangeRateTitle_rate}" required="true" requiredMessage="#{myBundle.EditExchangeRateRequiredMessage_rate}"/>
+                        <p:outputLabel value="#{myBundle.EditExchangeRateLabel_exchangedate}" for="exchangedate" />
+                        <p:calendar id="exchangedate" pattern="MM/dd/yyyy HH:mm:ss" value="#{exchangeRateController.selected.exchangedate}" title="#{myBundle.EditExchangeRateTitle_exchangedate}" required="true" requiredMessage="#{myBundle.EditExchangeRateRequiredMessage_exchangedate}" showOn="button"/>
+                        <p:outputLabel value="#{myBundle.EditExchangeRateLabel_currency}" for="currency" />
+                        <p:selectOneMenu id="currency" value="#{exchangeRateController.selected.currency}" required="true" requiredMessage="#{myBundle.EditExchangeRateRequiredMessage_currency}">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{currencyController.itemsAvailableSelectOne}"
+                                           var="currencyItem"
+                                           itemValue="#{currencyItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{exchangeRateController.update}" value="#{myBundle.Save}" update="display,:ExchangeRateListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ExchangeRateEditDialog');"/>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="ExchangeRateEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

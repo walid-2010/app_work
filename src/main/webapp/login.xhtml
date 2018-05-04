@@ -1,0 +1,48 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:o="http://omnifaces.org/ui"
+    template="/template/template.xhtml"
+    >
+
+    <ui:define name="metadata">
+        <f:metadata>
+            <o:enableRestorableView />
+        </f:metadata>
+    </ui:define>
+
+    <ui:define name="body">
+        <h:form styleClass="loginPanelStyle" dir="rtl">
+            <p:growl showSummary="false" id="msgs" showDetail="true" sticky="false" />
+            <p:spacer width="50"/>
+            <p:panelGrid columns="2" style="margin: 0px auto;">
+                <f:facet name="header">
+                    #{myBundle.login_to_systm}
+                </f:facet>
+                <h:outputText value="#{myBundle.label_userName}: "></h:outputText>
+
+                <h:panelGroup>
+                    <p:inputText id="username" value="#{userManager.userName}" required="true"
+                                 requiredMessage="#{myBundle.label_pleaseEnter} #{myBundle.label_userName}!" >
+                        <f:validateLength minimum="1" />
+
+                    </p:inputText>
+                </h:panelGroup>
+
+                <h:outputText value="#{myBundle.label_password}: "></h:outputText>
+                <p:password id="password" value="#{userManager.password}" required="true" requiredMessage="#{myBundle.label_pleaseEnter} #{myBundle.label_password}!">
+                    <f:validateLength minimum="1" />
+                </p:password>
+
+                <f:facet name="footer">
+                    <p:commandButton value="#{myBundle.label_login}" update="msgs" actionListener="#{userManager.login}" type="submit"
+                                     icon="ui-icon-check" process="@form"  style="margin:0" ajax="true">
+                    </p:commandButton>
+                </f:facet>
+            </p:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

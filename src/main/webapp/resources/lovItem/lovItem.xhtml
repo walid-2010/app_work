@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html   xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+        xmlns:p="http://primefaces.org/ui">
+
+    <!-- INTERFACE -->
+    <cc:interface componentType="lovItemComponent">
+        <cc:attribute name="id" />
+        <cc:attribute name="src" type="org.primefaces.model.LazyDataModel"/>
+        <cc:attribute name="value" type="java.lang.Object"/>
+
+        <cc:attribute name="val1" type="java.lang.String"/>
+        <cc:attribute name="val2" type="java.lang.String"/>
+        <cc:attribute name="columns" type="java.lang.String"/>
+
+        <cc:attribute name="required" default="false" />
+        <cc:attribute name="update" default=" "/>
+        <cc:attribute name="process" default=" "/>
+        <cc:attribute name="disabled" default="false"/>
+        <cc:attribute name ="dialogHeader" default=""/>
+        <cc:attribute name ="showClearBtn" default="true"/>
+
+        <cc:attribute name ="val2ReadOnly" default="false"/>
+        <cc:attribute name ="val1ReadOnly" default="true"/>
+
+        <cc:attribute name ="val1Disbled" default="false"/>
+        <cc:attribute name ="valu2Disabled" default="true"/>
+        <cc:attribute name ="lazyModelFlag" default="true"/>
+
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <h:panelGroup id="panel" styleClass="panelColumns">
+            <h:inputText rendered="#{cc.attrs.val1 ne null}" readonly="#{cc.attrs.val1ReadOnly}" value="#{(cc.compValue ne null)? cc.compValue[cc.attrs.val1]:cc.emptyString}" disabled="#{cc.attrs.val1Disbled}"/>
+            <h:inputText rendered="#{cc.attrs.val2 ne null}" readonly="#{cc.attrs.val2ReadOnly}" value="#{(cc.compValue ne null) ? cc.compValue[cc.attrs.val2]:cc.emptyString}" disabled="#{cc.attrs.valu2Disabled}"/>
+            <p:commandButton icon="ui-icon-list" type="button"
+                             disabled="#{cc.attrs.disabled}"
+                             style="width:20px!important;height: 20px!important;vertical-align: middle!important;" styleClass="buttonWithIconOnly"
+                             id="selectBtnId"
+                             onclick="PF('#{cc.attrs.id}_dialog').show();" >
+                <p:tooltip  for="selectBtnId" value="#{myBundle.Select}" showEffect="fade" hideEffect="fade"/>
+
+            </p:commandButton>
+            <p:spacer width="5px"/>
+            <p:commandButton icon="ui-icon-clear"  actionListener="#{cc.clearSelection()}" styleClass="buttonWithIconOnly"
+                             rendered="#{cc.attrs.showClearBtn}"
+                             id="clearBtnId"
+                             disabled="#{cc.attrs.disabled}"
+                             style="width:20px!important;height: 20px!important;vertical-align: middle!important;"
+                             process="@this,ItemTableId,#{cc.attrs.process}" immediate="false"
+                             update="panel,#{cc.attrs.update}">
+                <p:tooltip  for="clearBtnId" value="#{myBundle.CANCEL_BUTTON_LABEL}" showEffect="fade" hideEffect="fade"/>
+            </p:commandButton>
+
+        </h:panelGroup>
+
+        <p:dialog widgetVar="#{cc.attrs.id}_dialog" modal="true" responsive="true"
+                  header="#{cc.attrs.dialogHeader}"
+                  style="position: absolute"
+                  resizable="false" closeOnEscape="true" draggable="true"  appendTo="@form" positionType="fixed">
+            <p:panel>
+                <p:dataTable
+                    value="#{cc.attrs.src}"
+                    lazy="#{cc.attrs.lazyModelFlag}"
+                    var="item"
+                    paginator="true"
+                    paginatorPosition="bottom"
+                    rows="5"
+                    emptyMessage="#{myBundle.EmptyResult}"
+                    id="ItemTableId"
+                    rowsPerPageTemplate="5 10 15 20"
+                    selectionMode="single"
+                    selection="#{cc.selected}"
+                    >
+
+                    <p:columns value="#{cc.splitValues(cc.attrs.columns)}" var="column" columnIndexVar="colIndex"
+                               sortBy="#{column.toString()}"
+                               filterBy="#{column.toString()}">
+
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle[column]}"  />
+                        </f:facet>
+
+                        <h:outputText rendered="#{fn:contains(column, '.') eq false}" value="#{item[column]}"     converter="omnifaces.SelectItemsConverter"/>
+                        <h:outputText rendered="#{fn:contains(column, '.') eq true}" value="#{lovItemBacking.findBeanProperty(item,column)}"
+                                      converter="omnifaces.SelectItemsConverter"
+                                      />
+
+
+                    </p:columns>
+                    <p:ajax event="rowDblselect" listener="#{cc.onRowDblClckSelect}"
+                            process="@this,ItemTableId,#{cc.attrs.process}" immediate="false"
+                            update="#{cc.attrs.update}" oncomplete="PF('#{cc.attrs.id}_dialog').hide();"  />
+                </p:dataTable>
+
+                <p:commandButton icon="ui-icon-plus" value="#{myBundle.Select}" actionListener="#{cc.onItemChosen}"
+                                 process="@this,ItemTableId,#{cc.attrs.process}" immediate="false"
+                                 update="panel,#{cc.attrs.update}" oncomplete="PF('#{cc.attrs.id}_dialog').hide();"/>
+                <p:commandButton value="#{myBundle.CANCEL_BUTTON_LABEL}" actionListener="#{cc.reset}" immediate="true" oncomplete="PF('#{cc.attrs.id}_dialog').hide();" />
+
+            </p:panel>
+            <p:ajax event="close" listener="#{cc.resetResultTable()}" update="panel"/>
+        </p:dialog>
+        <style type="text/css">
+            body.layout-compact .ui-button.ui-button-icon-only {
+                height: 30px;
+                border-radius: 3px;
+                -webkit-border-radius: 3px;
+                -moz-border-radius: 3px;
+                vertical-align: central;
+            }
+
+        </style>
+    </cc:implementation>
+
+</html>

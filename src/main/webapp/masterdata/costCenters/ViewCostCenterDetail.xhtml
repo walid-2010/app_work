@@ -1,0 +1,60 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <p:dialog id="view_cost_center_dialog" appendTo=":fullPage" dir="#{myBundle.text_dir}" header="#{myBundle['costCenterTitle']}"
+              widgetVar="view_cost_center_dialog" draggable="true" closable="true" position="center"
+              showEffect="explode" hideEffect="explode" width="40%"
+              closeOnEscape="true" dynamic="true" maximizable="true">
+
+        <p:panelGrid style="margin-top:10px; margin-bottom:20px; width: 100%;">
+
+            <f:facet name="header">
+                <p:row>
+                    <p:column colspan="4">#{myBundle.details}</p:column>
+                </p:row>
+
+            </f:facet>
+
+            <p:row>
+                <p:column>
+                    <p:outputLabel value="#{myBundle.Code}" />
+                </p:column>
+                <p:column>
+                    <p:outputLabel value="#{costCentersTreeBB.selectedCostCenter.code}" />
+                </p:column>
+
+                <p:column>
+                    <p:outputLabel value="#{myBundle.Name}" />
+                </p:column>
+                <p:column>
+                    <p:outputLabel value="#{costCentersTreeBB.selectedCostCenter.costCenter}" />
+                </p:column>
+            </p:row>
+
+            <p:row>
+
+
+
+                <p:column>
+                    <p:outputLabel value="#{myBundle.parent_name}"/>
+                </p:column>
+                <p:column>
+                    <p:outputLabel value="#{costCentersTreeBB.selectedCostCenter.parentId.costCenter}" />
+                </p:column>
+
+            </p:row>
+
+
+
+
+
+        </p:panelGrid>
+
+    </p:dialog>
+
+</ui:composition>
+

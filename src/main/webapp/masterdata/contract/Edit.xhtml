@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ContractEditDlg" widgetVar="ContractEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.EditContractTitle}">
+            <h:form id="ContractEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{contractController.selected != null}">
+                        <p:outputLabel value="#{myBundle.EditContractLabel_contarctDate}" for="contarctDate" />
+                        <p:calendar id="contarctDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{contractController.selected.contarctDate}" title="#{myBundle.EditContractTitle_contarctDate}" required="true" requiredMessage="#{myBundle.EditContractRequiredMessage_contarctDate}" showOn="button"/>
+                        <p:outputLabel value="#{myBundle.EditContractLabel_pakage}" for="pakage" />
+                        <p:selectOneMenu id="pakage" value="#{contractController.selected.pakage}" required="true" requiredMessage="#{myBundle.EditContractRequiredMessage_pakage}">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{contractController.packagesList}"
+                                           var="pakageItem"
+                                           itemValue="#{pakageItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{myBundle.EditContractLabel_totalAmount}" for="totalAmount" />
+                        <p:inputText id="totalAmount" value="#{contractController.selected.totalAmount}" title="#{myBundle.EditContractTitle_totalAmount}" />
+                        <p:outputLabel value="#{myBundle.EditContractLabel_firstPayment}" for="firstPayment" />
+                        <p:inputText id="firstPayment" value="#{contractController.selected.firstPayment}" title="#{myBundle.EditContractTitle_firstPayment}" />
+                        <p:outputLabel value="#{myBundle.EditContractLabel_contractID}" for="contractID" />
+                        <p:inputText id="contractID" value="#{contractController.selected.contractID}" title="#{myBundle.EditContractTitle_contractID}" required="true" requiredMessage="#{myBundle.EditContractRequiredMessage_contractID}"/>
+                        <p:outputLabel value="#{myBundle.EditContractLabel_code}" for="code" />
+                        <p:inputText id="code" value="#{contractController.selected.code}" title="#{myBundle.EditContractTitle_code}" />
+                        <p:outputLabel value="#{myBundle.EditContractLabel_noOfMonths}" for="noOfMonths" />
+                        <p:inputText id="noOfMonths" value="#{contractController.selected.noOfMonths}" title="#{myBundle.EditContractTitle_noOfMonths}" />
+                        <p:outputLabel value="#{myBundle.EditContractLabel_nameID}" for="nameID" />
+                        <p:selectOneMenu id="nameID" value="#{contractController.selected.nameID}" required="true" requiredMessage="#{myBundle.EditContractRequiredMessage_nameID}">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{contractController.namesList}"
+                                           var="nameIDItem"
+                                           itemValue="#{nameIDItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{contractController.update}" value="#{myBundle.Save}" update="display,:ContractListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ContractEditDialog');"/>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="ContractEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

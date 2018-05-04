@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BankEditDlg" widgetVar="BankEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.Edit}">
+            <h:form id="BankEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{manfezController.selected != null}">
+
+                        <p:outputLabel value="#{myBundle.Name}" for="CMPname" />
+                        <p:inputText id="CMPname" value="#{manfezController.selected.manfazName}" title="#{myBundle.Name}" />
+
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{manfezController.save}" process="@form" value="#{myBundle.Save}" update="display,:BankListForm:datalist,:growl"
+                                     oncomplete="handleSubmit(xhr,status,args,PF('BankEditDialog'));"/>
+                    <p:commandButton value="#{myBundle.Cancel}" global="false" oncomplete="PF('BankEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

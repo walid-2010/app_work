@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="StoreCreateDlg" widgetVar="StoreCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateStoreTitle}">
+            <h:form id="StoreCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{storeController.selected != null}">
+                        <p:outputLabel value="#{myBundle.CreateStoreLabel_storeId}" for="storeId" />
+                        <p:inputText id="storeId" value="#{storeController.selected.storeId}" title="#{myBundle.CreateStoreTitle_storeId}" required="true" requiredMessage="#{myBundle.CreateStoreRequiredMessage_storeId}"/>
+                        <p:outputLabel value="#{myBundle.CreateStoreLabel_storeNo}" for="storeNo" />
+                        <p:inputText id="storeNo" value="#{storeController.selected.storeNo}" title="#{myBundle.CreateStoreTitle_storeNo}" />
+                        <p:outputLabel value="#{myBundle.CreateStoreLabel_storeName}" for="storeName" />
+                        <p:inputText id="storeName" value="#{storeController.selected.storeName}" title="#{myBundle.CreateStoreTitle_storeName}" />
+                        <p:outputLabel value="#{myBundle.CreateStoreLabel_phone}" for="phone" />
+                        <p:inputText id="phone" value="#{storeController.selected.phone}" title="#{myBundle.CreateStoreTitle_phone}" />
+                        <p:outputLabel value="#{myBundle.CreateStoreLabel_mobile}" for="mobile" />
+                        <p:inputText id="mobile" value="#{storeController.selected.mobile}" title="#{myBundle.CreateStoreTitle_mobile}" />
+                        <p:outputLabel value="#{myBundle.CreateStoreLabel_phone2}" for="phone2" />
+                        <p:inputText id="phone2" value="#{storeController.selected.phone2}" title="#{myBundle.CreateStoreTitle_phone2}" />
+                        <p:outputLabel value="#{myBundle.CreateStoreLabel_fax}" for="fax" />
+                        <p:inputText id="fax" value="#{storeController.selected.fax}" title="#{myBundle.CreateStoreTitle_fax}" />
+                        <p:outputLabel value="#{myBundle.CreateStoreLabel_address}" for="address" />
+                        <p:inputText id="address" value="#{storeController.selected.address}" title="#{myBundle.CreateStoreTitle_address}" />
+                        <p:outputLabel value="#{myBundle.CreateStoreLabel_block}" for="block" />
+                        <p:selectBooleanCheckbox id="block" value="#{storeController.selected.block}" />
+                        <p:outputLabel value="#{myBundle.CreateStoreLabel_isBrach}" for="isBrach" />
+                        <p:selectBooleanCheckbox id="isBrach" value="#{storeController.selected.isBrach}" />
+                        <p:outputLabel value="#{myBundle.CreateStoreLabel_allowStoreSale}" for="allowStoreSale" />
+                        <p:selectBooleanCheckbox id="allowStoreSale" value="#{storeController.selected.allowStoreSale}" />
+                        <p:outputLabel value="#{myBundle.CreateStoreLabel_isDefault}" for="isDefault" />
+                        <p:selectBooleanCheckbox id="isDefault" value="#{storeController.selected.isDefault}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{storeController.create}" value="#{myBundle.Save}" update="display,:StoreListForm:datalist,:growl" oncomplete="handleSubmit(args,'StoreCreateDialog');"/>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="StoreCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/template/template.xhtml"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="title">
+        <h:outputText value="#{myBundle.costCenterTitle}"/>
+    </ui:define>
+
+    <ui:define name="body">
+
+        <h:form dir="rtl">
+
+            <p:panel rendered="#{costCentersTreeBB.renderTableView  eq true}" styleClass="nonBorderPanel">
+                <p:messages id="table_msgs" autoUpdate="true" closable="true" escape="false"/>
+                <p:contextMenu for="cost_centers_table_tree">
+
+<!--                    <p:menuitem value="#{myBundle.View}" actionListener="#{costCentersTreeBB.displayListner()}"
+                                update="@form:view_cost_center_dialog" oncomplete="PF('view_cost_center_dialog').show();"
+                                icon="ui-icon-openfolder" />-->
+
+                    <p:menuitem value="#{myBundle.NEW_BUTTON_LABEL_INVOICECHECKSDETAILSAA}" action="#{costCentersTreeBB.addCostCenter()}"
+                                update="table_msgs" icon="ui-icon-plus"  />
+
+
+
+                    <p:menuitem value="#{myBundle.Edit}" action="#{costCentersTreeBB.editCostCenter()}"
+                                update="table_msgs" icon="ui-icon-pencil" />
+
+
+                    <p:menuitem update="table_msgs" >
+                        <p:commandLink styleClass="ui-menuitem-link" update="table_msgs" process="@this"
+                                       action="#{costCentersTreeBB.removeCostCenter()}">
+                            <p:outputLabel styleClass="ui-menuitem-icon ui-icon ui-icon-trash" />
+                            <p:outputLabel styleClass="ui-menuitem-text" value="#{myBundle.Delete}" />
+                            <p:confirm  icon="ui-icon-alert" />
+                        </p:commandLink>
+                    </p:menuitem>
+
+                </p:contextMenu>
+
+                <p:confirmDialog global="true"  message="#{myBundle.ConfirmDelet}"  closeOnEscape="true" showEffect="fade" hideEffect="explode">
+                    <p:commandButton value="#{myBundle.DOMAIN_YESNODOMAIN_Y}" update="table_msgs" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="#{myBundle.DOMAIN_YESNODOMAIN_N}" update="table_msgs" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
+
+
+                <p:treeTable id="cost_centers_table_tree" value="#{costCentersTreeBB.root}" var="node"
+                             selectionMode="single" selection="#{costCentersTreeBB.selectedNode}"
+                             resizableColumns="true"
+                             emptyMessage="#{myBundle.EmptyResult}"
+                             style="direction: ltr;">
+
+                    <p:column style="text-align: center" headerText="#{myBundle['costCenterName']}" width="60%" sortBy="#{node.costCenter}">
+                        <h:outputText value="#{node.costCenter}" />
+                    </p:column>
+
+                    <p:column style="text-align: center" headerText="#{myBundle['costCentercode']}" width="40%" sortBy="#{node.code}" >
+                        <h:outputText value="#{node.code}" />
+                    </p:column>
+
+
+
+                </p:treeTable>
+            </p:panel>
+
+
+            <ui:include src="ViewCostCenterDetail.xhtml" />
+
+        </h:form>
+        <style type="text/css">
+            .ui-menu.ui-menu-dynamic {
+                width: 80px!important;
+                background-color: #E8F1F8;
+            }
+        </style>
+    </ui:define>
+
+</ui:composition>
+
